@@ -2,10 +2,27 @@
   "drinks": [
     {
       "id": "1",
+      "title": "Americano",
       "size": "Venti",
-      "shots": "2",
+      "shots": "4",
       "milk": "none",
       "syrup": "none"
+    },
+    {
+      "id": "2",
+      "title": "Latte",
+      "size": "Venti",
+      "shots": "2",
+      "milk": "Whole",
+      "syrup": "Vanilla"
+    },
+    {
+      "id": "E-76UhD",
+      "title": "Flat White",
+      "size": "",
+      "shots": "03",
+      "milk": "",
+      "syrup": ""
     }
   ]
 }

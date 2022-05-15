@@ -4,6 +4,7 @@ import { Drink } from '../common/models/drinks';
 
 const emptyDrink: Drink = {
   id: null,
+  title: '',
   size: '',
   shots: 0,
   milk: '',
@@ -16,31 +17,39 @@ const emptyDrink: Drink = {
   styleUrls: ['./drinks.component.scss'],
 })
 export class DrinksComponent implements OnInit {
-  drinks = [
-    {
-      id: 'Americano',
-      size: 'Venti',
-      shots: '4',
-      milk: 'none',
-      syrup: 'none',
-    },
-    {
-      id: 'Latte',
-      size: 'Venti',
-      shots: '2',
-      milk: 'none',
-      syrup: 'none',
-    },
-  ];
-
-  selectedDrink = null;
+  drinks = [];
+  selectedDrink = emptyDrink;
+  originalTitle = '';
 
   constructor(private drinksService: DrinksService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchDrinks();
+  }
 
   selectDrink(drink) {
-    this.selectedDrink = drink;
+    this.selectedDrink = { ...drink };
+    this.originalTitle = drink.title;
+  }
+
+  fetchDrinks() {
+    this.drinksService.all().subscribe((result: any) => (this.drinks = result));
+  }
+
+  saveDrink(drink) {
+    if (drink.id) {
+      this.updateDrink(drink);
+    } else {
+      this.createDrink(drink);
+    }
+  }
+
+  createDrink(drink) {
+    this.drinksService.create(drink).subscribe((result) => this.fetchDrinks());
+  }
+
+  updateDrink(drink) {
+    this.drinksService.update(drink).subscribe((result) => this.fetchDrinks());
   }
 
   deleteDrink(drinkId) {
@@ -48,6 +57,6 @@ export class DrinksComponent implements OnInit {
   }
 
   reset() {
-    this.selectedDrink({ ...emptyDrink });
+    this.selectDrink({ ...emptyDrink });
   }
 }

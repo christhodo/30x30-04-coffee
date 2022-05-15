@@ -10,7 +10,7 @@
             *ngFor="let drink of drinks"
             (click)="selectDrink(drink)"
           >
-            <h3 matLine>{{ drink.id | titlecase }}</h3>
+            <h3 matLine>{{ drink.title | titlecase }}</h3>
             <button
               mat-icon-button
               color="warn"
@@ -29,17 +29,17 @@
       <mat-card-header>
         <mat-card-title> Select Drink </mat-card-title>
         <span *ngIf="selectedDrink?.id; else elseBlock">{{
-          selectedDrink.id | titlecase
+          originalTitle | titlecase
         }}</span>
         <ng-template #elseBlock>Select a Drink</ng-template>
       </mat-card-header>
-      <form #form="ngForm">
+      <form #form="ngForm" (submit)="saveDrink(selectedDrink)">
         <mat-card-content>
           <mat-form-field class="full-width">
             <input
               matInput
               placeholder="Drink"
-              [(ngModel)]="selectedDrink.id"
+              [(ngModel)]="selectedDrink.title"
               name="name"
               required
               type="text"
