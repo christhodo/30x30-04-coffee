@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'http://localhost:3000';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +32,10 @@ export class DrinksService {
   }
 
   private getUrl() {
-    return `${BASE_URL}${this.model}`;
+    return `${BASE_URL}/${this.model}`;
   }
 
   private getUrlWithID(id) {
-    return `${this.getUrl()}${id}`;
+    return `${this.getUrl()}/${id}`;
   }
 }
